@@ -53,3 +53,32 @@ This project is a single-tenant unified fan identity, commerce, membership, tick
 - GET /personalization/events?userId=...
 - GET /personalization/blocks?userId=...
 
+
+## AI Concierge (THU-17)
+- POST /concierge/session { userId?, context? }
+- POST /concierge/session/:id/message { role, content }
+- GET  /concierge/session/:id/prompt
+- GET  /concierge/identity/:userId
+- GET  /concierge/loyalty/:userId/balance
+- GET  /concierge/ticket/:userId/eligibility/:eventId
+- GET  /concierge/checkin/:userId/:eventId/:sectionId
+- GET  /concierge/order/:orderId/status
+
+## Brazil Adapters (THU-17)
+- POST /webhooks/gupshup → { events: WhatsAppInbound[] }
+- POST /webhooks/zenvia  → { events: WhatsAppInbound[] }
+
+## Local Run (THU-17)
+- Configure env: DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
+- Install deps: `npm i && (cd backend && npm i)`
+- Start backend: `(cd backend && npm run start:dev)`
+- Seed demo: `(cd backend && ts-node src/seeds/seed.ts)`
+
+## Deferred Items (THU-17)
+- Real WhatsApp send via Gupshup/Zenvia tokens
+- Real Pix provider integration and reconciliation storage
+- Richer order status and check-in read models
+
+## PR Summary (THU-17)
+Adds AI Concierge foundations (sessions/messages/tools/summaries), Brazil adapters (Gupshup/Zenvia/Pix), seeds, tests, docs. Wires modules and endpoints.
+

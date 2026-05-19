@@ -3,10 +3,11 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthModule } from './health/health.module';
 import { PersonalizationModule } from './personalization/personalization.module';
+import { ConciergeModule } from './concierge/concierge.module';
+import { BrazilModule } from './brazil/brazil.module';
 
 @Module({
   imports: [
-    PersonalizationModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -19,6 +20,9 @@ import { PersonalizationModule } from './personalization/personalization.module'
       synchronize: true,
     }),
     HealthModule,
+    PersonalizationModule,
+    ConciergeModule,
+    BrazilModule,
   ],
 })
 export class AppModule {}
