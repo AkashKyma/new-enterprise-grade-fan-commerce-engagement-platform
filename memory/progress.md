@@ -1,3 +1,3 @@
-# Progress (THU-7)
-- Implemented loyalty module with entities, service, controller.
-- Added endpoints for earn, redeem, balance, history, and rewards CRUD.
+# Progress (THU-6)
+- Implemented CDP entities and APIs: ingest events, create/run segments, create templates, create/trigger campaigns.
+- Wired module; memory updated.

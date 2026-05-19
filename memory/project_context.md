@@ -1,2 +1,2 @@
-# Project Context (THU-7)
-Loyalty layer added: LoyaltyAccount, LedgerEntry (idempotent), LoyaltyTier, BenefitRule, RewardCatalogItem, RewardRedemption. Earn/redeem/balance/history implemented.
+# Project Context (THU-6)
+CDP foundation added: profiles, events, segments, campaigns, journeys (entity), templates, channel dispatch. Event ingestion supports key domain event types.

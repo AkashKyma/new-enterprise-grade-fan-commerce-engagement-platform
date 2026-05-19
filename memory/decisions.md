@@ -1,4 +1,4 @@
-# Decisions (THU-7)
-- Require idempotency keys for all ledger mutations.
-- Use pessimistic_write locks on account updates to avoid race conditions.
-- Reward redemption returns a placeholder voucher; wire Voucherify adapter later.
+# Decisions (THU-6)
+- Minimal segmentation engine (trait path or eventType) for speed; extensible later.
+- Channel providers abstracted; V1 writes ChannelDispatch records for delivery workers.
+- Journeys entity included; execution engine deferred to next ticket.
