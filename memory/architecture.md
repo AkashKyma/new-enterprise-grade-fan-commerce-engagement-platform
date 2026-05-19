@@ -1,4 +1,4 @@
-# Architecture Notes (THU-6)
-- CDP module stores unified profiles and events.
-- Segmentation criteria kept simple for V1 (trait path equals; eventType match).
-- Campaigns reference segment + template; trigger enqueues ChannelDispatch rows (provider adapters to be wired later for WhatsApp/push; email/SMS later).
+# Architecture Notes (THU-12)
+- Central stock maintained per variant; transfers move stock from central to specific locations with dual movement entries.
+- Sales deduct per-location stock transactionally with pessimistic locks; receipts persisted idempotently via externalId.
+- Returns increment per-location stock and log return movements; future replenishment can build on transfer + central restock flows.

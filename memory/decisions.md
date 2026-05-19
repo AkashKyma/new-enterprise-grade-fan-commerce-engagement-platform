@@ -1,4 +1,4 @@
-# Decisions (THU-6)
-- Minimal segmentation engine (trait path or eventType) for speed; extensible later.
-- Channel providers abstracted; V1 writes ChannelDispatch records for delivery workers.
-- Journeys entity included; execution engine deferred to next ticket.
+# Decisions (THU-12)
+- externalId from retail POS is idempotency key for sale ingestion.
+- Use pessimistic locks for all stock mutations under load.
+- Movement log is canonical history; levels are derived state for quick views.

@@ -1,2 +1,2 @@
-# Project Context (THU-6)
-CDP foundation added: profiles, events, segments, campaigns, journeys (entity), templates, channel dispatch. Event ingestion supports key domain event types.
+# Project Context (THU-12)
+Retail POS with central inventory + two-location stock, transfers, sales, returns, and movement history implemented as service + API.

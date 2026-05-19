@@ -1,3 +1,3 @@
-# Progress (THU-6)
-- Implemented CDP entities and APIs: ingest events, create/run segments, create templates, create/trigger campaigns.
-- Wired module; memory updated.
+# Progress (THU-12)
+- Implemented retail_pos module with entities, service, and controller.
+- Exposed APIs for product/variant/location management, central + per-location stock, transfer, sale ingestion, and returns.
