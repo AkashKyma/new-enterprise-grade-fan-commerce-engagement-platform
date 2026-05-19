@@ -1,6 +1,5 @@
-# Decisions (THU-5)
-- Use JWT for stateless auth; sessions table maintained for audit.
-- Passwords stored as bcrypt hashes; email or phone used as primary login identifiers.
-- Keep biometric/facial-recognition data as placeholders; no biometric storage in v1, only provider references.
-- All future modules must reference internal userId; identity linking via provider + providerId.
-- Dev DB uses synchronize=true; switch to migrations for prod.
+# Decisions
+- Single-tenant v1; modular monolith to allow future extraction to services.
+- TypeORM with autoLoadEntities for rapid dev (migrations directory prepared; switch off synchronize for prod).
+- Health endpoint lives at /health for infra checks.
+- Config validation added (class-validator) to fail fast on missing env.

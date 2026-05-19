@@ -1,1 +1,47 @@
-# new-enterprise-grade-fan-commerce-engagement-platform
+# Fan Platform
+
+## Overview
+
+This project is a single-tenant unified fan identity, commerce, membership, ticketing, loyalty, inventory, marketplace, personalization, and AI concierge platform.
+
+## Requirements
+
+- Node.js
+- Docker
+
+## Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/fan-platform.git
+   cd fan-platform
+   ```
+
+2. Copy the environment variables file:
+
+   ```bash
+   cp env.example .env
+   ```
+
+3. Start the development environment:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:3000`.
+
+## Project Structure
+
+- **src/**: Contains the frontend and backend code.
+- **memory/**: Documentation for project context, architecture, progress, and decisions.
+- **docker-compose.yml**: Docker Compose configuration for local development.
+
+## Scripts
+
+- `npm run dev`: Start the development environment.
+- `npm run build`: Build the project for production.
+- `npm run start`: Start the production server.
+- `npm run migrate`: Run database migrations.
+- `npm run seed`: Seed the database with initial data.

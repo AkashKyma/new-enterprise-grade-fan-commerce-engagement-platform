@@ -1,5 +1,7 @@
-# Progress (THU-5)
-- Added backend NestJS app with identity and auth modules.
-- Implemented signup/signin, JWT, roles, unified profile retrieval, provider linking.
-- Added entities including wallet/membership/biometric placeholders and sessions.
-- Memory updated with context and architecture notes.
+# Progress
+- Initialized repo foundation for THU-4.
+- Backend: NestJS bootstrap with health endpoint, config validation scaffold, TypeORM connection.
+- Frontend: Next.js app scaffold.
+- Docker Compose: db, redis, backend, frontend.
+- Env example: DB + Redis + provider placeholders.
+- Memory system created with context, architecture, decisions, and order.
