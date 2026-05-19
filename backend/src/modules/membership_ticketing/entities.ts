@@ -77,6 +77,6 @@ export class CheckInRecord {
 export class AccessCredentialReference {
   @PrimaryGeneratedColumn('uuid') id!: string;
   @Index() @Column() userId!: string;
-  @Column({ nullable: true }) providerId!: string | null; // future FR system
+  @Column({ type: 'varchar', nullable: true }) providerId!: string | null; // future FR system
   @Column('jsonb', { default: {} }) meta!: any;
 }

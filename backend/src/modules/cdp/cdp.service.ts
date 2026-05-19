@@ -1,7 +1,7 @@
-import { Injectable } from @nestjs/common;
-import { InjectRepository } from @nestjs/typeorm;
-import { Repository } from typeorm;
-import { CdpEvent, CdpProfile, Segment, Campaign, Journey, Template, ChannelDispatch } from ./entities;
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CdpEvent, CdpProfile, Segment, Campaign, Journey, Template, ChannelDispatch } from './entities';
 
 @Injectable()
 export class CdpService {
@@ -40,7 +40,7 @@ export class CdpService {
       // fetch profiles and filter in memory for demo
       const all = await this.profiles.find();
       const matched = all.filter(p => {
-        const parts = String(seg.criteria.trait.path).split(.);
+        const parts = String(seg.criteria.trait.path).split('.');
         let v: any = p.traits;
         for (const part of parts) v = v?.[part];
         return v === seg.criteria.trait.value;

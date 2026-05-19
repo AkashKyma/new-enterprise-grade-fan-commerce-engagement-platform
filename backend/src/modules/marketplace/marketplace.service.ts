@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
+import { Repository, DataSource, In } from 'typeorm';
 import { Vendor, MarketplaceItem, Cart, CartLine, MpOrder, MpOrderLine, SettlementRef } from './entities';
 
 @Injectable()
@@ -31,8 +31,15 @@ export class MarketplaceService {
   async viewCart(userId: string) {
     const cart = await this.getOrCreateCart(userId);
     const lines = await this.lines.find({ where: { cartId: cart.id } });
-    const total = lines.reduce((s,l)=>s+l.unitPrice*l.qty,0);
-    return { cart, lines, total };
+    const itemIds = lines.map((l) => l.itemId);
+    const items = itemIds.length ? await this.items.findBy({ id: In(itemIds) }) : [];
+    const itemMap = new Map(items.map((i) => [i.id, i]));
+    const enriched = lines.map((l) => {
+      const item = itemMap.get(l.itemId);
+      return { sku: item?.sku ?? '', title: item?.title ?? 'Item', price: l.unitPrice, qty: l.qty };
+    });
+    const total = lines.reduce((s, l) => s + l.unitPrice * l.qty, 0);
+    return { cart, lines: enriched, total };
   }
   async clearCart(userId: string) { const cart = await this.getOrCreateCart(userId); await this.lines.delete({ cartId: cart.id as any }); return { ok: true }; }
 

@@ -18,12 +18,38 @@ export class IdentityService {
   async createUser(payload: { email?: string; phone?: string; passwordHash?: string; role?: User['role'] }) {
     const u = this.users.create({ email: payload.email || null, phone: payload.phone || null, passwordHash: payload.passwordHash || null, role: payload.role || 'customer' });
     const user = await this.users.save(u);
-    const profile = this.profiles.create({ userId: user.id, traits: {} });
-    await this.profiles.save(profile);
-    await this.wallets.save(this.wallets.create({ userId: user.id, meta: {} }));
-    await this.memberships.save(this.memberships.create({ userId: user.id, membershipId: null, meta: {} }));
-    await this.biometrics.save(this.biometrics.create({ userId: user.id, status: 'pending', providerMeta: {} }));
+    await this.ensureFanRecords(user.id, user.email);
     return user;
+  }
+
+  /** Creates profile / wallet / membership rows for users registered before full identity wiring. */
+  async ensureFanRecords(userId: string, email?: string | null) {
+    const displayName = email?.split('@')[0] ?? 'Fan';
+    let profile = await this.profiles.findOne({ where: { userId } });
+    if (!profile) {
+      profile = await this.profiles.save(this.profiles.create({ userId, traits: { name: displayName } }));
+    } else if (!profile.traits?.name) {
+      profile.traits = { ...profile.traits, name: displayName };
+      await this.profiles.save(profile);
+    }
+    if (!(await this.wallets.findOne({ where: { userId } }))) {
+      await this.wallets.save(this.wallets.create({ userId, meta: {} }));
+    }
+    let member = await this.memberships.findOne({ where: { userId } });
+    if (!member) {
+      member = await this.memberships.save(this.memberships.create({
+        userId,
+        membershipId: `SOCIO-${userId.slice(0, 8).toUpperCase()}`,
+        meta: { plan: 'Bronze', since: new Date().toISOString().slice(0, 10) },
+      }));
+    } else if (!member.membershipId) {
+      member.membershipId = `SOCIO-${userId.slice(0, 8).toUpperCase()}`;
+      member.meta = { ...member.meta, plan: member.meta?.plan ?? 'Bronze' };
+      await this.memberships.save(member);
+    }
+    if (!(await this.biometrics.findOne({ where: { userId } }))) {
+      await this.biometrics.save(this.biometrics.create({ userId, status: 'pending', providerMeta: {} }));
+    }
   }
 
   async findByEmailOrPhone(identifier: { email?: string; phone?: string }) {

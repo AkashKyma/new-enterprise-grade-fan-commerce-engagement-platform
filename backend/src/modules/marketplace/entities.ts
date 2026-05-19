@@ -14,7 +14,7 @@ export class MarketplaceItem {
   @Index({ unique: true }) @Column() sku!: string;
   @Column() title!: string;
   @Column('int') price!: number; // cents
-  @Index() @Column({ nullable: true }) vendorId!: string | null; // null => internal
+  @Index() @Column({ type: 'varchar', nullable: true }) vendorId!: string | null; // null => internal
   @Column('jsonb', { default: {} }) meta!: any; // type, stock policy, etc.
 }
 
@@ -53,7 +53,7 @@ export class MpOrderLine {
   @PrimaryGeneratedColumn('uuid') id!: string;
   @Index() @Column() orderId!: string;
   @Index() @Column() itemId!: string;
-  @Index() @Column({ nullable: true }) vendorId!: string | null;
+  @Index() @Column({ type: 'varchar', nullable: true }) vendorId!: string | null;
   @Column('int') unitPrice!: number;
   @Column('int') qty!: number;
   @Column('jsonb', { default: {} }) meta!: any;
@@ -63,6 +63,6 @@ export class MpOrderLine {
 export class SettlementRef {
   @PrimaryGeneratedColumn('uuid') id!: string;
   @Index() @Column() orderId!: string;
-  @Index() @Column({ nullable: true }) vendorId!: string | null;
+  @Index() @Column({ type: 'varchar', nullable: true }) vendorId!: string | null;
   @Column('jsonb', { default: {} }) meta!: any; // payout-ready refs
 }

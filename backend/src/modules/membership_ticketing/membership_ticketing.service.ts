@@ -35,6 +35,16 @@ export class MembershipTicketingService {
     return ev;
   }
 
+  async listEvents() {
+    const events = await this.events.find({ order: { date: 'ASC' } });
+    return Promise.all(
+      events.map(async (e) => {
+        const sections = await this.sections.find({ where: { eventId: e.id } });
+        return { id: e.id, name: e.name, date: e.date, meta: e.meta, sections };
+      }),
+    );
+  }
+
   // Eligibility
   async eligibility(userId: string, eventId: string) {
     const sub = await this.subs.findOne({ where: { userId, active: true } });

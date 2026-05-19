@@ -12,6 +12,9 @@ export class MembershipTicketingController {
   subscribe(@Body() b: { userId: string; planCode: string }) { return this.svc.subscribe(b.userId, b.planCode); }
 
   // Events & venue
+  @Get('events')
+  listEvents() { return this.svc.listEvents(); }
+
   @Post('event')
   createEvent(@Body() b: { name: string; date: string; sections: { name: string; capacity: number }[] }) { return this.svc.createEvent(b); }
 

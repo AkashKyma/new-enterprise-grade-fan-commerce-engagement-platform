@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn, Update
 @Entity('concierge_sessions')
 export class ConciergeSession {
   @PrimaryGeneratedColumn('uuid') id!: string;
-  @Index() @Column({ nullable: true }) userId!: string | null;
+  @Index() @Column({ type: 'varchar', nullable: true }) userId!: string | null;
   @Column('jsonb', { default: {} }) context!: any;
   @CreateDateColumn() createdAt!: Date;
   @UpdateDateColumn() updatedAt!: Date;

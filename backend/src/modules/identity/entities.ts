@@ -3,9 +3,9 @@ import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn, Update
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid') id!: string;
-  @Index({ unique: true }) @Column({ nullable: true }) email!: string | null;
-  @Index({ unique: true }) @Column({ nullable: true }) phone!: string | null;
-  @Column({ select: false, nullable: true }) passwordHash!: string | null;
+  @Index({ unique: true }) @Column({ type: 'varchar', nullable: true }) email!: string | null;
+  @Index({ unique: true }) @Column({ type: 'varchar', nullable: true }) phone!: string | null;
+  @Column({ type: 'varchar', select: false, nullable: true }) passwordHash!: string | null;
   @Column({ default: 'customer' }) role!: 'customer' | 'operator' | 'admin';
   @CreateDateColumn() createdAt!: Date;
   @UpdateDateColumn() updatedAt!: Date;
@@ -34,7 +34,7 @@ export class IdentityLink {
 export class WalletReference {
   @PrimaryGeneratedColumn('uuid') id!: string;
   @Index() @Column() userId!: string;
-  @Column({ nullable: true }) walletId!: string | null; // future stored-value/wallet system id
+  @Column({ type: 'varchar', nullable: true }) walletId!: string | null; // future stored-value/wallet system id
   @Column('jsonb', { default: {} }) meta!: Record<string, any>;
 }
 
@@ -42,7 +42,7 @@ export class WalletReference {
 export class MembershipReference {
   @PrimaryGeneratedColumn('uuid') id!: string;
   @Index() @Column() userId!: string;
-  @Index({ unique: true, nullable: true }) @Column({ nullable: true }) membershipId!: string | null;
+  @Column({ type: 'varchar', nullable: true, unique: true }) membershipId!: string | null;
   @Column('jsonb', { default: {} }) meta!: Record<string, any>;
 }
 

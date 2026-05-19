@@ -1,33 +1,65 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Repository } from 'typeorm';
-import { User } from '../identity/entities';
 import * as bcrypt from 'bcrypt';
+import { IdentityService } from '../identity/identity.service';
+import { LoyaltyService } from '../loyalty/loyalty.service';
+import { User } from '../identity/entities';
+
+const WELCOME_POINTS = 500;
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private users: Repository<User>,
+    private readonly identity: IdentityService,
+    private readonly loyalty: LoyaltyService,
     private jwt: JwtService,
   ) {}
 
+  private tokenFor(user: { id: string; role: User['role'] }) {
+    return this.jwt.signAsync({ sub: user.id, role: user.role });
+  }
+
+  private userDto(user: { id: string; email: string | null; phone: string | null; role: User['role'] }) {
+    return { id: user.id, email: user.email, phone: user.phone, role: user.role };
+  }
+
+  /** Profile, sócio ref, and welcome loyalty points for every fan account. */
+  private async bootstrapFan(userId: string, email?: string | null) {
+    await this.identity.ensureFanRecords(userId, email);
+    try {
+      await this.loyalty.earn({
+        userId,
+        amount: WELCOME_POINTS,
+        idempotencyKey: `welcome-${userId}`,
+        meta: { source: 'signup', note: 'Welcome bonus' },
+      });
+    } catch {
+      /* already earned */
+    }
+  }
+
   async signup(input: { email?: string; phone?: string; password: string; role?: User['role'] }) {
+    const existing = await this.identity.findByEmailOrPhone({ email: input.email, phone: input.phone });
+    if (existing) throw new ConflictException('Account already exists');
     const hash = await bcrypt.hash(input.password, 10);
-    const u = this.users.create({ email: input.email || null, phone: input.phone || null, passwordHash: hash, role: input.role || 'customer' });
-    const user = await this.users.save(u);
-    const payload = { sub: user.id, role: user.role };
-    const access_token = await this.jwt.signAsync(payload);
-    return { access_token, user: { id: user.id, email: user.email, phone: user.phone, role: user.role } };
+    const user = await this.identity.createUser({
+      email: input.email,
+      phone: input.phone,
+      passwordHash: hash,
+      role: input.role || 'customer',
+    });
+    await this.bootstrapFan(user.id, user.email);
+    const access_token = await this.tokenFor(user);
+    return { access_token, user: this.userDto(user) };
   }
 
   async signin(input: { email?: string; phone?: string; password: string }) {
-    const user = await this.users.findOne({ where: [{ email: input.email ?? undefined }, { phone: input.phone ?? undefined }] as any, select: ['id','email','phone','passwordHash','role'] });
+    const user = await this.identity.findByEmailOrPhone({ email: input.email, phone: input.phone });
     if (!user || !user.passwordHash) throw new UnauthorizedException('Invalid credentials');
     const ok = await bcrypt.compare(input.password, user.passwordHash);
     if (!ok) throw new UnauthorizedException('Invalid credentials');
-    const payload = { sub: user.id, role: user.role };
-    const access_token = await this.jwt.signAsync(payload);
-    return { access_token, user: { id: user.id, email: user.email, phone: user.phone, role: user.role } };
+    await this.bootstrapFan(user.id, user.email);
+    const access_token = await this.tokenFor(user);
+    return { access_token, user: this.userDto(user) };
   }
 }

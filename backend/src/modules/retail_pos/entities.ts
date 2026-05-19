@@ -46,7 +46,7 @@ export class RetailLocationLevel {
 export class RetailStockMovement {
   @PrimaryGeneratedColumn('uuid') id!: string;
   @Index() @Column() variantId!: string;
-  @Index() @Column({ nullable: true }) locationId!: string | null; // null => central
+  @Index() @Column({ type: 'varchar', nullable: true }) locationId!: string | null; // null => central
   @Column() kind!: 'in'|'out'|'adjust'|'transfer'|'return';
   @Column('int') quantity!: number;
   @Column('jsonb', { default: {} }) meta!: any;

@@ -30,7 +30,7 @@ This project is a single-tenant unified fan identity, commerce, membership, tick
    npm run dev
    ```
 
-4. Open your browser and navigate to `http://localhost:3000`.
+4. Local ports: **frontend** `http://localhost:8844` (`cd frontend && npm run dev`), **backend** `http://localhost:3001/health` (`PORT` in repo-root `.env`, default **3001**). If **8844** is taken, edit `frontend/package.json` `dev` / `start` scripts to another free port.
 
 ## Project Structure
 
@@ -69,7 +69,7 @@ This project is a single-tenant unified fan identity, commerce, membership, tick
 - POST /webhooks/zenvia  → { events: WhatsAppInbound[] }
 
 ## Local Run (THU-17)
-- Configure env: DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
+- Configure env: `PORT` (default API **3001**), `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`
 - Install deps: `npm i && (cd backend && npm i)`
 - Start backend: `(cd backend && npm run start:dev)`
 - Seed demo: `(cd backend && ts-node src/seeds/seed.ts)`
