@@ -1,3 +1,4 @@
-# Progress (THU-6)
-- Implemented CDP entities and APIs: ingest events, create/run segments, create templates, create/trigger campaigns.
-- Wired module; memory updated.
+# Progress (THU-11)
+- Implemented FnB entities, service, and controller.
+- Added endpoints to upsert products/outlets, manage stock, ingest POS receipts, and list inventory.
+- Ensured transactional stock deduction and idempotent sale ingestion.
