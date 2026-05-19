@@ -1,4 +1,3 @@
-# Decisions (THU-11)
-- Use externalId from POS as idempotency key for receipt ingestion.
-- Apply pessimistic locks during stock deduction to prevent race conditions under load.
-- Defer CDP/Loyalty publishing to background workers; keep clear adapter boundaries.
+# Decisions (THU-13)
+- Marketplace orders remain vendor-neutral; future provider/fulfillment adapters hook via SettlementRef and item meta.
+- Order status flow mirrors unified checkout; payment creation delegated to checkout module in a later integration step.
