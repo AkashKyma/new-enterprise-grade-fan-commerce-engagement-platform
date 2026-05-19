@@ -1,2 +1,2 @@
-# Project Context (THU-11)
-FnB module implemented with catalog, outlet-aware inventory, POS sale ingestion, receipt tracking, stock movements, and placeholders for CDP/Loyalty hooks.
+# Project Context (THU-13)
+Marketplace added with vendor-neutral catalog, cart, order, and settlement ref structures; integrates with unified checkout at order handoff stage in later tickets.
