@@ -1,5 +1,4 @@
-# Decisions
-- Single-tenant v1; modular monolith to allow future extraction to services.
-- TypeORM with autoLoadEntities for rapid dev (migrations directory prepared; switch off synchronize for prod).
-- Health endpoint lives at /health for infra checks.
-- Config validation added (class-validator) to fail fast on missing env.
+# Decisions (THU-6)
+- Minimal segmentation engine (trait path or eventType) for speed; extensible later.
+- Channel providers abstracted; V1 writes ChannelDispatch records for delivery workers.
+- Journeys entity included; execution engine deferred to next ticket.

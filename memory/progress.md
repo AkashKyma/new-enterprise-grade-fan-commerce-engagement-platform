@@ -1,7 +1,3 @@
-# Progress
-- Initialized repo foundation for THU-4.
-- Backend: NestJS bootstrap with health endpoint, config validation scaffold, TypeORM connection.
-- Frontend: Next.js app scaffold.
-- Docker Compose: db, redis, backend, frontend.
-- Env example: DB + Redis + provider placeholders.
-- Memory system created with context, architecture, decisions, and order.
+# Progress (THU-6)
+- Implemented CDP entities and APIs: ingest events, create/run segments, create templates, create/trigger campaigns.
+- Wired module; memory updated.
