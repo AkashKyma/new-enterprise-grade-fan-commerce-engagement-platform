@@ -1,4 +1,4 @@
-# Decisions (THU-12)
-- externalId from retail POS is idempotency key for sale ingestion.
-- Use pessimistic locks for all stock mutations under load.
-- Movement log is canonical history; levels are derived state for quick views.
+# Decisions (THU-11)
+- Use externalId from POS as idempotency key for receipt ingestion.
+- Apply pessimistic locks during stock deduction to prevent race conditions under load.
+- Defer CDP/Loyalty publishing to background workers; keep clear adapter boundaries.

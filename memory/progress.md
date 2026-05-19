@@ -1,3 +1,4 @@
-# Progress (THU-12)
-- Implemented retail_pos module with entities, service, and controller.
-- Exposed APIs for product/variant/location management, central + per-location stock, transfer, sale ingestion, and returns.
+# Progress (THU-11)
+- Implemented FnB entities, service, and controller.
+- Added endpoints to upsert products/outlets, manage stock, ingest POS receipts, and list inventory.
+- Ensured transactional stock deduction and idempotent sale ingestion.

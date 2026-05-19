@@ -1,2 +1,2 @@
-# Project Context (THU-12)
-Retail POS with central inventory + two-location stock, transfers, sales, returns, and movement history implemented as service + API.
+# Project Context (THU-11)
+FnB module implemented with catalog, outlet-aware inventory, POS sale ingestion, receipt tracking, stock movements, and placeholders for CDP/Loyalty hooks.
