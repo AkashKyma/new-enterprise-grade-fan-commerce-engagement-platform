@@ -15,7 +15,8 @@ Single-tenant fan identity, commerce, membership, ticketing, loyalty, marketplac
 | **Demo data** | Auto-seeded on backend start (`SEED_DEMO=true`) |
 
 See **[docs/USER_CAPABILITIES.md](docs/USER_CAPABILITIES.md)** for what fans can and cannot do in the UI.  
-See **[docs/PROJECT_AUDIT.md](docs/PROJECT_AUDIT.md)** for technical module status and gaps.
+See **[docs/PROJECT_AUDIT.md](docs/PROJECT_AUDIT.md)** for technical module status and gaps.  
+See **[docs/KNOWLEDGE_TRANSFER.md](docs/KNOWLEDGE_TRANSFER.md)** for comprehensive technical documentation and KT guide.
 
 ---
 
